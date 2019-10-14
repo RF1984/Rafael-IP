@@ -51,7 +51,8 @@ public class Tasks {
     @Override
     public String toString()
         {
-        return taskTitle + "    " + projectName;
+        return "Task title: " + taskTitle  + " | Project name: " + projectName + " | Due Date: " + dueDate +
+                " | Status: " + ((taskStatus) ? "DONE" : "UNDONE \n");
         }
 
 
