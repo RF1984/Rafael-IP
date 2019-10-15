@@ -37,6 +37,7 @@ public class Todolist
       */
      public void printWelcome()
     {
+        taskList.addAll(fileClass.upLoadFile());
         System.out.println("=======================================================================");
         System.out.println("Welcome to Rafael Fernandes To Do List®");
         System.out.println("You already completed " + getCount(true) + " tasks,");
@@ -59,7 +60,6 @@ public class Todolist
         System.out.println("=======================================================================");
             Scanner keyboard = new Scanner(System.in);
             String printOption = keyboard.nextLine();
-            if (printOption.equals("1") || printOption.equals("2") || printOption.equals("3") || printOption.equals("4")) {
                 switch (printOption) {
                     case "1":
                         printList();
@@ -73,9 +73,7 @@ public class Todolist
                     case "4":
                         printQuit();
                         break;
-                }
-            }
-            else {
+                    default:
                 invalidOption();
                 printOptions();
             }
@@ -121,6 +119,7 @@ public class Todolist
                 switch (editOption) {
                     case "1":
                         editStatus();
+                        break;
                     case "2":
                         editTitle();
                         break;
@@ -351,7 +350,8 @@ public class Todolist
             }
             printOptions();
         }
-    public void invalidOption()
+
+     public void invalidOption()
     {
         System.out.println("Invalid Option. Try again");
     }
@@ -375,11 +375,5 @@ public class Todolist
      public int getCount (Boolean taskStatus)
         {
          return (int) taskList.stream().filter(x -> x.getTaskStatus().equals(taskStatus)).count();
-        }
-
-    public static void main(String[] args)
-        {
-            Todolist todolist = new Todolist();
-            todolist.printWelcome();
         }
 }

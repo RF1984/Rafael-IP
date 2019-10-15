@@ -1,13 +1,23 @@
 package todolist;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLOutput;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PrimitiveIterator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class FileClass {
-    private ArrayList <> uploadList;
+    private static final int numberOfFields = 4;
+    private static final int TASK = 0,
+                             PROJECT = 1,
+                             DATE = 2,
+                             STATUS = 3;
+
 
     public void saveFile(ArrayList<Tasks> taskList)
     {
@@ -16,34 +26,62 @@ public class FileClass {
         // If the file exists, truncate (remove all content) and write to it
         try (FileWriter writer = new FileWriter("tasklist.csv");
              BufferedWriter bw = new BufferedWriter(writer)) {
+            taskList.stream()
+                    .map(task -> task.toString() +"\n")
+                    .forEach(string ->
+                    { try {
+                                bw.write(string);
+                            }
+                            catch (IOException e){}}
+        );
 
-            bw.write(taskList.toString());
+
 
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
     }
-    public void fileLoad (String filePath)
+
+    public ArrayList<Tasks> upLoadFile ()
     {
-        List taskListFromFile = new ArrayList();
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line = null;
-        int count = 0;
-        while ((line = reader.readLine())!=null);
-        {
-            if (count == 0) {
-                count++;
-                continue;
-            }
-            String[] lineContents = line.split("|");
-            ArrayList<> uploadList = new ArrayList<>;
+       Function<String,Tasks> creatTasks =
+               record -> {
+           String[] parts = record.split("\\|");
+           if (parts.length == numberOfFields)
+           {
+               try
+               {
+                   String taskTitle = parts[TASK].trim();
+                   String projectName = parts[PROJECT].trim();
+                   LocalDate dueDate = LocalDate.parse(parts[DATE].trim());
+                   Boolean taskStatus = Boolean.parseBoolean(parts[STATUS].trim());
+                   return new Tasks (taskTitle, projectName, dueDate,taskStatus);
+               }
+               catch (NumberFormatException Exception)
+               {
+                   System.out.println("error of sorts" + record);
+                   return null;
+               }
+           }
+           else
+           {
+               System.out.println("Wrong number of fields" + record);
+               return null;
+           }
+           };
+           ArrayList <Tasks> tasks;
+           try{
+               tasks = Files.lines(Paths.get("tasklist.csv"))
+                            .map(creatTasks)
+                            .filter(tasks1 -> tasks1 != null)
+                            .collect(Collectors.toCollection(ArrayList::new));
 
-
-
-
+           }
+           catch(IOException e) {
+               System.out.println("Unable to open " + "tasklist.csv");
+               tasks = new ArrayList<>();
+           }
+           return tasks;
         }
+  }
 
-
-
-    }
-}

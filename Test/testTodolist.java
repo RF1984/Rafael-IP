@@ -1,16 +1,17 @@
-import jdk.jfr.StackTrace;
-import org.junit.jupiter.api.Test;
+//import junit.org.*;
 import todolist.Todolist;
+
+//import org.junit.jupiter.api.Test;
 
 public class testTodolist
 {
 
-    @Test
-    void testAddTasks()
-    {
-        Todolist todolisttest = new Todolist();
-        todolisttest.scannerAdd();
-
-    }
+//    @Test
+//    void testAddTasks()
+//    {
+//        Todolist todolisttest = new Todolist();
+//        todolisttest.scannerAdd();
+//
+//    }
 
 }

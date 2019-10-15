@@ -24,6 +24,13 @@ public class Tasks {
             taskStatus = false;
 
         }
+    public Tasks (String taskTitle, String projectName, LocalDate dueDate,Boolean taskStatus)
+    {
+        this.taskTitle = taskTitle;
+        this.projectName = projectName;
+        this.dueDate = dueDate;
+        this.taskStatus = taskStatus;
+    }
 
 
     //Set task value (Status) True or False (Done or undone)
@@ -51,10 +58,9 @@ public class Tasks {
     @Override
     public String toString()
         {
-        return "Task title: " + taskTitle  + " | Project name: " + projectName + " | Due Date: " + dueDate +
-                " | Status: " + ((taskStatus) ? "DONE" : "UNDONE \n");
+        return taskTitle  + " | " + projectName + " | " + dueDate +
+                " | " + taskStatus;
         }
-
 
     public String getProjectName()
         {
