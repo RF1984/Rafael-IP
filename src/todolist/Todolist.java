@@ -10,10 +10,7 @@ import java.util.Scanner;
 
 
 /**
- * This class is the Main class of To do List application
- * This program should open a text based application where you can create a list of tasks to do. You can add tasks,
- * delete tasks, mark tasks as done.
- *  * @Author Rafael Fernandes
+ * in this class we initialize our ArrayList of Tasks and write the methods to interact with that list
  */
 
 
@@ -23,9 +20,9 @@ public class Todolist
         private ArrayList<Tasks> taskList;
         private FileClass fileClass;
 
-/**
-* Constructor method. Creates an Arraylist of Tasks.
-*/
+     /**
+      * Constructor for todoList: Initializes the ArrayList, and the FileClass (used to write/save files)
+      */
     public Todolist()
         {
             taskList = new ArrayList<>();
@@ -33,7 +30,11 @@ public class Todolist
         }
 
      /**
-      * Print Welcome message and number of complete and incomplete tasks.
+      * This is the first method called in the main class.
+      * It will call a method to upload a file if one exists.
+      * Will print a welcome message that will list the number of tasks on the users tasklist,
+      * separating them by their status (done/undone)
+      * will then automatically call the printOptions method
       */
      public void printWelcome()
     {
@@ -47,7 +48,8 @@ public class Todolist
     }
 
      /**
-      * Print Initial menu
+      * Print the first menu that the user can interact with. Will give some options and requires the
+      * user to chose one.
       */
     public void printOptions()
     {
@@ -80,7 +82,7 @@ public class Todolist
         }
 
      /**
-      * Print Quit message and save list into file
+      * Prints Quit message and save list into file
       */
     public void printQuit()
         {
@@ -143,7 +145,7 @@ public class Todolist
          }
 
      /**
-      * Edit the Title of a task.
+      * Edits the Title of a task.
       * User is required to type the index of the task he wants to edit
       */
     public void editTitle()
@@ -288,7 +290,7 @@ public class Todolist
      /**
       * add tasks to the task list
       * requires task name, project name and date.
-      * status will be false (undone) when you enter a new task
+      * status will be false (undone) by default
       */
     public void scannerAdd()
     {
@@ -313,7 +315,7 @@ public class Todolist
         }
 
      /**
-      *
+      * this method takes the date typed by the user (String) to a LocalDate type.
       */
     public LocalDate stringToDate(String dateString)
         {
@@ -351,11 +353,18 @@ public class Todolist
             printOptions();
         }
 
+     /**
+      * prints an error message. This method is called when the user types an invalid input.
+      */
      public void invalidOption()
     {
         System.out.println("Invalid Option. Try again");
     }
 
+     /**
+      * prints an error message.
+      * This method is called when the user needs to type a task index, but types an inexistent one.
+      */
     public void invalidTaskNumber()
     {
         System.out.println("That's not a valid task number");
