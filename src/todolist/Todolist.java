@@ -249,13 +249,12 @@ public class Todolist
       */
     public void scannerAdd()
     {
-            Scanner keyboard = new Scanner(System.in);
             System.out.println("type task name");
-            String taskName = keyboard.nextLine();
+            String taskName = scanner();
             System.out.println("type name of project");
-            String taskProject = keyboard.nextLine();
+            String taskProject = scanner();
             System.out.println("type due date of task in this format: dd-MM-yyyy ");
-            String dateString = keyboard.nextLine();
+            String dateString = scanner();
             LocalDate realDate = stringToDate(dateString);
 
             if (realDate != null)
@@ -268,7 +267,6 @@ public class Todolist
                 printOptions();
             }
         }
-
      /**
       * this method takes the date typed by the user (String) to a LocalDate type.
       */

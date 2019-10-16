@@ -8,6 +8,7 @@ import java.time.LocalDate;
  */
 
 public class Task {
+
     private String taskTitle;
     private LocalDate dueDate;
     private Boolean taskStatus;
