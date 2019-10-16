@@ -17,7 +17,7 @@ public class DateTest
         System.out.println("The array : " + arr);
         System.out.println("The list : " + list);
 
-        Tasks t = null; //new Tasks("ti", "pr", null);
+        Task t = null; //new Tasks("ti", "pr", null);
         System.out.println("the task : " + t);
         //t.printTasks();
 

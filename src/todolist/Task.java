@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * means the task is still UNDONE
  */
 
-public class Tasks {
+public class Task {
     private String taskTitle;
     private LocalDate dueDate;
     private Boolean taskStatus;
@@ -16,7 +16,7 @@ public class Tasks {
 
 
     //Contructor Create new task
-    public Tasks (String taskTitle, String projectName, LocalDate dueDate)
+    public Task(String taskTitle, String projectName, LocalDate dueDate)
         {
             this.taskTitle = taskTitle;
             this.projectName = projectName;
@@ -24,7 +24,7 @@ public class Tasks {
             taskStatus = false;
 
         }
-    public Tasks (String taskTitle, String projectName, LocalDate dueDate,Boolean taskStatus)
+    public Task(String taskTitle, String projectName, LocalDate dueDate, Boolean taskStatus)
     {
         this.taskTitle = taskTitle;
         this.projectName = projectName;

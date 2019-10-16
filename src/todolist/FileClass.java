@@ -3,11 +3,8 @@ package todolist;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.PrimitiveIterator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -19,7 +16,7 @@ public class FileClass {
                              STATUS = 3;
 
 
-    public void saveFile(ArrayList<Tasks> taskList)
+    public void saveFile(ArrayList<Task> taskList)
     {
 
         // If the file doesn't exists, create and write to it
@@ -42,9 +39,9 @@ public class FileClass {
         }
     }
 
-    public ArrayList<Tasks> upLoadFile ()
+    public ArrayList<Task> upLoadFile ()
     {
-       Function<String,Tasks> creatTasks =
+       Function<String, Task> creatTasks =
                record -> {
            String[] parts = record.split("\\|");
            if (parts.length == numberOfFields)
@@ -55,7 +52,7 @@ public class FileClass {
                    String projectName = parts[PROJECT].trim();
                    LocalDate dueDate = LocalDate.parse(parts[DATE].trim());
                    Boolean taskStatus = Boolean.parseBoolean(parts[STATUS].trim());
-                   return new Tasks (taskTitle, projectName, dueDate,taskStatus);
+                   return new Task(taskTitle, projectName, dueDate,taskStatus);
                }
                catch (NumberFormatException Exception)
                {
@@ -69,11 +66,11 @@ public class FileClass {
                return null;
            }
            };
-           ArrayList <Tasks> tasks;
+           ArrayList <Task> tasks;
            try{
                tasks = Files.lines(Paths.get("tasklist.csv"))
                             .map(creatTasks)
-                            .filter(tasks1 -> tasks1 != null)
+                            .filter(task1 -> task1 != null)
                             .collect(Collectors.toCollection(ArrayList::new));
 
            }

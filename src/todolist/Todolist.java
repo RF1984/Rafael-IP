@@ -1,6 +1,5 @@
 package todolist;
 
-import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,8 +16,9 @@ import java.util.Scanner;
 public class Todolist
  {
         private Parser parser;
-        private ArrayList<Tasks> taskList;
+        private ArrayList<Task> taskList;
         private FileClass fileClass;
+        private Scanner userInput;
 
      /**
       * Constructor for todoList: Initializes the ArrayList, and the FileClass (used to write/save files)
@@ -27,7 +27,38 @@ public class Todolist
         {
             taskList = new ArrayList<>();
             fileClass = new FileClass();
+            userInput = new Scanner(System.in);
         }
+
+     public String scanner ()
+     {
+         return userInput.nextLine();
+     }
+
+     public int convertStringToIndex(String indexString)
+     {
+         int index = -1;
+         try
+         {
+            index = Integer.parseInt(indexString);
+            if (index < 0 || index > taskList.size() - 1)
+             {return -1;}
+         }
+
+         catch (NumberFormatException Exception)
+         {invalidTaskNumber();}
+
+         return index;
+     }
+
+     public int validateTaskNumber ()
+     {
+         System.out.println("type task index:");
+         int index = convertStringToIndex(scanner());
+         if (index != - 1) {return index;}
+         else {invalidTaskNumber();}
+         return index;
+     }
 
      /**
       * This is the first method called in the main class.
@@ -60,25 +91,23 @@ public class Todolist
         System.out.println("3. Edit task");
         System.out.println("4. To save and exit");
         System.out.println("=======================================================================");
-            Scanner keyboard = new Scanner(System.in);
-            String printOption = keyboard.nextLine();
-                switch (printOption) {
-                    case "1":
-                        printList();
+        mainOptions();
+    }
+
+    public void mainOptions()
+        {
+                switch (scanner())
+                {
+                    case "1": printList();
                         break;
-                    case "2":
-                        scannerAdd();
+                    case "2": scannerAdd();
                         break;
-                    case "3":
-                        printEdit();
+                    case "3": printEdit();
                         break;
-                    case "4":
-                        printQuit();
+                    case "4": printQuit();
                         break;
-                    default:
-                invalidOption();
-                printOptions();
-            }
+                    default: invalidOption(); printOptions();
+                }
         }
 
      /**
@@ -96,15 +125,14 @@ public class Todolist
       * Print Edit menu where the user can select in which way he wants to edit his/her tasks.
       */
     public void printEdit()
-        {
-            if (taskList.isEmpty())
+    {
+        if (taskList.isEmpty())
             {
-                System.out.println("Your list is still empty");
-                System.out.println("Add some tasks first");
-                printOptions();
+            System.out.println("Your list is still empty");
+            System.out.println("Add some tasks first");
+            printOptions();
             }
-            else
-
+        else {
             System.out.println("=========================================");
             System.out.println("Choose one of the following edit options:");
             System.out.println("1 Change task status");
@@ -114,33 +142,26 @@ public class Todolist
             System.out.println("5 Delete task");
             System.out.println("6 Go back");
             System.out.println("=========================================");
-                Scanner keyboard = new Scanner(System.in);
-                String editOption = keyboard.nextLine();
-            if (editOption.equals("1") || editOption.equals("2") || editOption.equals("3") || editOption.equals("4") ||
-                    editOption.equals("5") || editOption.equals("6")){
-                switch (editOption) {
-                    case "1":
-                        editStatus();
-                        break;
-                    case "2":
-                        editTitle();
-                        break;
-                    case "3":
-                        editProject();
-                        break;
-                    case "4":
-                        editDueDate();
-                        break;
-                    case "5":
-                        deleteTask();
-                        break;
-                    case "6":
-                        printOptions();
-                }
+            editOptions();
             }
-            else {
-                  invalidOption();
-                  printEdit();
+    }
+
+     public void editOptions()
+           {
+                switch (scanner()) {
+                    case "1": editStatus();
+                        break;
+                    case "2": editTitle();
+                        break;
+                    case "3": editProject();
+                        break;
+                    case "4": editDueDate();
+                        break;
+                    case "5": deleteTask();
+                        break;
+                    case "6": printOptions();
+                        break;
+                    default: invalidOption(); printEdit();
             }
          }
 
@@ -150,31 +171,12 @@ public class Todolist
       */
     public void editTitle()
         {
-            try
-            {
-                System.out.println("type task index:");
-                Scanner keyboard = new Scanner(System.in);
-                int index = keyboard.nextInt();
-                if (index >= 0 && index <= taskList.size() - 1)
-                {
-
-                    System.out.println("type new title:");
-                    Scanner keyboard2 = new Scanner(System.in);
-                    String newTaskTitle = keyboard2.nextLine();
-                    taskList.get(index).changeTitle(newTaskTitle);
-                    System.out.println("task title changed");
-
-                    printList();
-                }
-                else
-                {
-                    invalidTaskNumber();
-                }
-            }
-            catch (InputMismatchException Exception)
-            {
-                invalidTaskNumber();
-            }
+            int index = validateTaskNumber();
+            System.out.println("type new title:");
+            String newTaskTitle = scanner();
+            taskList.get(index).changeTitle(newTaskTitle);
+            System.out.println("task title changed");
+            printList();
         }
 
      /**
@@ -182,85 +184,38 @@ public class Todolist
       * User is required to type the index of the task he wants to edit
       */
     public void editProject()
-        {
-            try
             {
-            System.out.println("type task index:");
-            Scanner keyboard = new Scanner(System.in);
-            int index = keyboard.nextInt();
-            if (index >= 0 && index <= taskList.size() - 1)
-                    {
-                        System.out.println("type new project name:");
-                        Scanner keyboard2 = new Scanner(System.in);
-                        String newProjectName = keyboard2.nextLine();
-                        taskList.get(index).changeProject(newProjectName);
-                        System.out.println("project name changed.");
-                        printList();
-                    }
-                else
-                    {
-                    invalidTaskNumber();
-                    }
-                }
-            catch (InputMismatchException Exception)
-                {
-                    invalidTaskNumber();
-                }
-        }
+                int index = validateTaskNumber();
+                System.out.println("type new project name");
+                String newProjectName = scanner();
+                taskList.get(index).changeProject(newProjectName);
+                System.out.println("project name changed.");
+                printList();
+            }
 
      /**
       * Edit the due date of a task.
       * User is required to type the index of the task he wants to edit
       */
     public void editDueDate()
-    {
-            try
             {
-                System.out.println("type task index:");
-                Scanner keyboard = new Scanner(System.in);
-                int index = keyboard.nextInt();
-                if (index >= 0 && index <= taskList.size() - 1)
-                    {
-                        System.out.println("type new due date (dd-mm-yyyy:)");
-                        Scanner keyboard2 = new Scanner(System.in);
-                        String newDueDate = keyboard2.nextLine();
-                        taskList.get(index).changeDueDate(stringToDate(newDueDate));
-                        System.out.println("project name changed.");
-                        printList();
-                    }
-                else
-                    {
-                        invalidTaskNumber();
-                    }
+                int index = validateTaskNumber();
+                System.out.println("type new due date (dd-mm-yyyy:)");
+                String newDueDate = scanner();
+                taskList.get(index).changeDueDate(stringToDate(newDueDate));
+                System.out.println("project name changed.");
+                printList();
             }
-            catch (InputMismatchException Exception)
-            {
-                invalidTaskNumber();
-            }
-    }
      /**
       * Edit the status of a task.
       * User is required to type the index of the task he wants to edit
       */
     public void editStatus()
         {
-            try
-            {
-                System.out.println("insert task index");
-                Scanner keyboard = new Scanner(System.in);
-                int index = keyboard.nextInt();
-                if (index <= taskList.size() - 1) {
-                    taskList.get(index).done(index);
-                    System.out.println("Status changed");
-                    printList();
-                } else {
-                    invalidTaskNumber();
-                }
-            }
-            catch (InputMismatchException Exception)
-            {
-                invalidTaskNumber();
-            }
+            int index = validateTaskNumber();
+            taskList.get(index).done(index);
+            System.out.println("Status changed");
+            printList();
         }
 
      /**
@@ -278,7 +233,7 @@ public class Todolist
                 System.out.println("This is your task list:");
                 for (int i = 0; i < taskList.size(); i++)
                     {
-                    Tasks t = taskList.get(i);
+                    Task t = taskList.get(i);
                     System.out.print(i + " ");
                     t.printTasks();
                     //System.out.println("Task: " + t );
@@ -305,7 +260,7 @@ public class Todolist
 
             if (realDate != null)
             {
-                Tasks task = new Tasks(taskName, taskProject, realDate);
+                Task task = new Task(taskName, taskProject, realDate);
                 taskList.add(task);
                 printOptions();
             }
