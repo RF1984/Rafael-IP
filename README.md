@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rafael-IP
 SDA6 IP 
 # Rafael-IP
@@ -22,3 +23,6 @@ Display a collection of tasks that can be sorted both by date and project
 Support the ability to add, edit, mark as done, and remove tasks
 Support a text-based user interface
 Load and save task list to file
+=======
+
+>>>>>>> a364a2189be58f52c9fadd5d2649cdda9ec0a376
