@@ -118,7 +118,7 @@ public class Todolist {
                 break;
             default:
                 invalidOption();
-                printOptions();
+                mainOptions();
         }
     }
 
@@ -137,8 +137,7 @@ public class Todolist {
      */
     public void printEdit() {
         if (taskList.isEmpty()) {
-            System.out.println("Your list is still empty");
-            System.out.println("Add some tasks first");
+            listEmpty();
             printOptions();
         } else {
             System.out.println("=========================================");
@@ -176,7 +175,7 @@ public class Todolist {
                 break;
             default:
                 invalidOption();
-                printEdit();
+                editOptions();
         }
     }
 
@@ -312,28 +311,44 @@ public class Todolist {
         System.out.println("That's not a valid task number");
     }
 
+    public void listEmpty()
+    {
+        System.out.println("Your list is still empty");
+        System.out.println("Add some tasks first");
+    }
     /**
      * print the possible options for print the task list
      * first checks if the list is empty, only if it's not, will then proceed.
      */
     public void printSortOptions() {
         if (taskList.isEmpty()) {
-            System.out.println("Your list is still empty");
-            System.out.println("Add some tasks first");
+            listEmpty();
             printOptions();
         } else {
             System.out.println("Choose one of the following options:");
             System.out.println("1. Sort list by project");
             System.out.println("2. Sort list by due date");
-            switch (scanner()) {
+            sortOptions();
+        }
+    }
+
+    /**
+     *  gives the actual sort options and asks for the user to choose one. 
+     */
+     public void sortOptions()
+            {
+            switch (scanner())
+            {
                 case "1":
                     printByProject();
                     break;
                 case "2":
                     printByDueDate();
+                default:
+                    invalidOption();
+                    sortOptions();
             }
         }
-    }
 
     /**
      * print task list sorted by Project
