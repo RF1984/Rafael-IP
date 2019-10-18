@@ -17,7 +17,12 @@ public class Task {
     private int count;
 
 
-    //Contructor Create new task
+    /**
+     * Constructor method for Task. Takes 3 parameters, and assumes Status as false (task in undone)
+     * @param taskTitle
+     * @param projectName
+     * @param dueDate
+     */
     public Task(String taskTitle, String projectName, LocalDate dueDate) {
         this.taskTitle = taskTitle;
         this.projectName = projectName;
@@ -26,6 +31,14 @@ public class Task {
 
     }
 
+    /**
+     * Second constructor for Tasl. It takes 4 parameters.
+     * It's used when reading a task from a file.
+     * @param taskTitle
+     * @param projectName
+     * @param dueDate
+     * @param taskStatus
+     */
     public Task(String taskTitle, String projectName, LocalDate dueDate, Boolean taskStatus) {
         this.taskTitle = taskTitle;
         this.projectName = projectName;
@@ -34,7 +47,9 @@ public class Task {
     }
 
 
-    //Set task value (Status) True or False (Done or undone)
+    /**
+     * Alternates the Status of a task from true (done) to false (undone) or vice versa.
+     */
     public void done(int taskIndex) {
         if (taskStatus == true) {
             taskStatus = false;

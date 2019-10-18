@@ -12,7 +12,6 @@ import java.util.*;
 
 
 public class Todolist {
-    private Parser parser;
     private ArrayList<Task> taskList;
     private FileClass fileClass;
     private Scanner userInput;
@@ -39,7 +38,7 @@ public class Todolist {
      * converts a to an Integer.
      * Will then check if this Integer contains a number that can be converted to Integer, and if it is a valid task number.
      *
-     * @param indexString
+     * @param indexString parameter is the string given by the user
      * @return -1 if the index is not valid, and the index if it succeeds.
      */
     public int convertStringToIndex(String indexString) {
@@ -261,7 +260,6 @@ public class Todolist {
         System.out.println("type due date of task in this format: dd-MM-yyyy ");
         String dateString = scanner();
         LocalDate realDate = stringToDate(dateString);
-
         if (realDate != null) {
             Task task = new Task(taskName, taskProject, realDate);
             taskList.add(task);
@@ -333,7 +331,7 @@ public class Todolist {
     }
 
     /**
-     *  gives the actual sort options and asks for the user to choose one. 
+     *  gives the actual sort options and asks for the user to choose one.
      */
      public void sortOptions()
             {
