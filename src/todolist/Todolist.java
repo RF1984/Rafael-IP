@@ -58,6 +58,7 @@ public class Todolist {
 
     /**
      * Asks for the user to type a task number, and will convert it to sting calling the convertStringToIndex method.
+     *
      * @return the index if it's valid, or will call the invalidTaskNumber method if it's not.
      */
     public int validateTaskNumber() {
@@ -67,7 +68,7 @@ public class Todolist {
             return index;
         } else
             invalidTaskNumber();
-            return validateTaskNumber();
+        return validateTaskNumber();
     }
 
     /**
@@ -79,11 +80,11 @@ public class Todolist {
      */
     public void printWelcome() {
         taskList.addAll(fileClass.upLoadFile());
-        System.out.println("=======================================================================");
+        System.out.println("=======================================");
         System.out.println("Welcome to Rafael Fernandes To Do List®");
         System.out.println("You already completed " + getCount(true) + " tasks,");
         System.out.println("But you still have " + getCount(false) + " unfinished tasks.");
-        System.out.println("=======================================================================");
+        System.out.println("=======================================");
         printOptions();
     }
 
@@ -92,16 +93,20 @@ public class Todolist {
      * user to chose one.
      */
     public void printOptions() {
-        System.out.println("=======================================================================");
+        System.out.println("==========================");
         System.out.println("Type your option number");
         System.out.println("1. See my tasks");
         System.out.println("2. Add a task to my list");
         System.out.println("3. Edit task");
         System.out.println("4. To save and exit");
-        System.out.println("=======================================================================");
+        System.out.println("==========================");
         mainOptions();
     }
 
+    /**
+     * this method is called always after the Options menu is shown to the user.
+     * it expects input from the user and links it to the related method.
+     */
     public void mainOptions() {
         switch (scanner()) {
             case "1":
@@ -153,6 +158,10 @@ public class Todolist {
         }
     }
 
+    /**
+     * this method is called always after the Edit Options menu is shown to the user.
+     * it expects input from the user and links it to the related method.
+     */
     public void editOptions() {
         switch (scanner()) {
             case "1":
@@ -224,29 +233,10 @@ public class Todolist {
      */
     public void editStatus() {
         int index = validateTaskNumber();
-        taskList.get(index).done(index);
+        taskList.get(index).done();
         System.out.println("Status changed");
         printByProject();
     }
-
-    /**
-     * Print task list.
-     */
-   /* public void printList() {
-        if (taskList.isEmpty()) {
-            System.out.println("Your list is still empty");
-            System.out.println("Add some tasks first");
-        } else {
-            System.out.println("This is your task list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                System.out.print(i + " ");
-                t.printTasks();
-                //System.out.println("Task: " + t );
-            }
-        }
-        printOptions();
-    }*/
 
     /**
      * add tasks to the task list
@@ -310,11 +300,11 @@ public class Todolist {
         System.out.println("That's not a valid task number");
     }
 
-    public void listEmpty()
-    {
+    public void listEmpty() {
         System.out.println("Your list is still empty");
         System.out.println("Add some tasks first");
     }
+
     /**
      * print the possible options for print the task list
      * first checks if the list is empty, only if it's not, will then proceed.
@@ -332,23 +322,21 @@ public class Todolist {
     }
 
     /**
-     *  gives the actual sort options and asks for the user to choose one.
+     * gives the actual sort options and asks for the user to choose one.
      */
-     public void sortOptions()
-            {
-            switch (scanner())
-            {
-                case "1":
-                    printByProject();
-                    break;
-                case "2":
-                    printByDueDate();
-                    break;
-                default:
-                    invalidOption();
-                    sortOptions();
-            }
+    public void sortOptions() {
+        switch (scanner()) {
+            case "1":
+                printByProject();
+                break;
+            case "2":
+                printByDueDate();
+                break;
+            default:
+                invalidOption();
+                sortOptions();
         }
+    }
 
     /**
      * print task list sorted by Project
@@ -374,8 +362,15 @@ public class Todolist {
     public int getCount(Boolean taskStatus) {
         return (int) taskList.stream().filter(x -> x.getTaskStatus().equals(taskStatus)).count();
     }
-    public Task getListElement(int index)
-    {
-       return taskList.get(index);
+
+    /**
+     * this method returns a task from the our arraylist of tasks.
+     * This method was created to assert the results of the testScannerAddTask() test.
+     *
+     * @param index
+     * @return
+     */
+    public Task getListElement(int index) {
+        return taskList.get(index);
     }
 }

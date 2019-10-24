@@ -3,9 +3,9 @@ package todolist;
 import java.time.LocalDate;
 
 /**
- * Task class will contain a HashMap where the Key is the task,
- * and the Value will be a Boolean where true means that task is DONE, and false
- * means the task is still UNDONE
+ * This class creates the objects of Task.
+ * a Task object represents a task that we have to do.
+ * it will have a title, a project, a due date, and also a status (done/undone)
  */
 
 public class Task {
@@ -14,11 +14,11 @@ public class Task {
     private LocalDate dueDate;
     private Boolean taskStatus;
     private String projectName;
-    private int count;
 
 
     /**
      * Constructor method for Task. Takes 3 parameters, and assumes Status as false (task in undone)
+     *
      * @param taskTitle
      * @param projectName
      * @param dueDate
@@ -28,12 +28,12 @@ public class Task {
         this.projectName = projectName;
         this.dueDate = dueDate;
         taskStatus = false;
-
     }
 
     /**
      * Second constructor for Tasl. It takes 4 parameters.
      * It's used when reading a task from a file.
+     *
      * @param taskTitle
      * @param projectName
      * @param dueDate
@@ -46,11 +46,10 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-
     /**
      * Alternates the Status of a task from true (done) to false (undone) or vice versa.
      */
-    public void done(int taskIndex) {
+    public void done() {
         if (taskStatus == true) {
             taskStatus = false;
         } else {
@@ -58,14 +57,13 @@ public class Task {
         }
     }
 
-    //print task list
+    /**
+     * print task list
+     */
     public String printTasks() {
         return " Task: " + taskTitle + " | Project: " + projectName + " | Due Date: " + dueDate +
                 " | Status: " + ((taskStatus) ? "DONE" : "UNDONE");
     }
-
-    //enhancement. delete it if it make you confused
-
 
     @Override
     public String toString() {
@@ -73,40 +71,65 @@ public class Task {
                 " | " + taskStatus;
     }
 
+    /**
+     * get method
+     *
+     * @return Project name
+     */
     public String getProjectName() {
         return projectName;
     }
 
-
+    /**
+     * get method
+     *
+     * @return Task title
+     */
     public String getTaskTitle() {
         return taskTitle;
     }
 
-
+    /**
+     * get method
+     *
+     * @return
+     */
     public LocalDate getDueDate() {
         return dueDate;
     }
 
+    /**
+     * get method
+     *
+     * @return Task status
+     */
     public Boolean getTaskStatus() {
         return taskStatus;
     }
 
-    //change task title
+    /**
+     * set method. sets new task title
+     *
+     * @param newTaskTitle
+     */
     public void changeTitle(String newTaskTitle) {
         this.taskTitle = newTaskTitle;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    //change task project
+    /**
+     * set method. sets new project name
+     *
+     * @param newProjectName
+     */
     public void changeProject(String newProjectName) {
         this.projectName = newProjectName;
     }
 
-
-    //change task due date
+    /**
+     * set method. sets new task due date
+     *
+     * @param newDueDate
+     */
     public void changeDueDate(LocalDate newDueDate) {
         this.dueDate = newDueDate;
     }
