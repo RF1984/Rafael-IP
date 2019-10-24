@@ -49,10 +49,7 @@ public class Todolist {
             if (index < 0 || index > taskList.size() - 1) {
                 return -1;
             }
-        } catch (NumberFormatException Exception) {
-            invalidTaskNumber();
-        }
-
+        } catch (NumberFormatException Exception){}
         return index;
     }
 
@@ -62,7 +59,7 @@ public class Todolist {
      * @return the index if it's valid, or will call the invalidTaskNumber method if it's not.
      */
     public int validateTaskNumber() {
-        System.out.println("type task index:");
+        System.out.println("type task number:");
         int index = convertStringToIndex(scanner());
         if (index != -1) {
             return index;
@@ -116,6 +113,7 @@ public class Todolist {
                 scannerAdd();
                 break;
             case "3":
+                printByDueDate();
                 printEdit();
                 break;
             case "4":
@@ -199,6 +197,7 @@ public class Todolist {
         taskList.get(index).changeTitle(newTaskTitle);
         System.out.println("task title changed");
         printByProject();
+        printOptions();
     }
 
     /**
@@ -210,8 +209,9 @@ public class Todolist {
         System.out.println("type new project name");
         String newProjectName = scanner();
         taskList.get(index).changeProject(newProjectName);
-        System.out.println("project name changed.");
+        System.out.println("project name changed!");
         printByProject();
+        printOptions();
     }
 
     /**
@@ -223,8 +223,9 @@ public class Todolist {
         System.out.println("type new due date (dd-mm-yyyy:)");
         String newDueDate = scanner();
         taskList.get(index).changeDueDate(stringToDate(newDueDate));
-        System.out.println("project name changed.");
+        System.out.println("due date changed!");
         printByProject();
+        printOptions();
     }
 
     /**
@@ -234,8 +235,9 @@ public class Todolist {
     public void editStatus() {
         int index = validateTaskNumber();
         taskList.get(index).done();
-        System.out.println("Status changed");
+        System.out.println("Status changed!");
         printByProject();
+        printOptions();
     }
 
     /**
@@ -244,31 +246,46 @@ public class Todolist {
      * status will be false (undone) by default
      */
     public void scannerAdd() {
+
+        System.out.println("===============");
         System.out.println("type task name");
         String taskName = scanner();
+        System.out.println("====================");
         System.out.println("type name of project");
         String taskProject = scanner();
+        System.out.println("=================================================");
         System.out.println("type due date of task in this format: dd-MM-yyyy ");
         String dateString = scanner();
         LocalDate realDate = stringToDate(dateString);
         if (realDate != null) {
             Task task = new Task(taskName, taskProject, realDate);
             taskList.add(task);
+            System.out.println("Good job! Task added!");
             printOptions();
         } else {
-            printOptions();
+            scannerAdd();
         }
     }
 
     /**
      * this method takes the date typed by the user (String) to a LocalDate type.
+     * it will throw an exception of the date is the wrong format.
+     * it will also print an error message if the date typed by the user already passed.
      */
     public LocalDate stringToDate(String dateString) {
         // todo try and catch
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localDate = LocalDate.parse(dateString, formatter);
-            return localDate;
+            if(localDate.compareTo(LocalDate.now()) < 0)
+            {
+                System.out.println("The date you typed belongs in the pass, try again");
+                return null;
+            }
+            else
+            {
+                return localDate;  
+            }
         } catch (DateTimeParseException exception) {
             System.out.println("wrong date format, try again");
             return null;
@@ -328,9 +345,11 @@ public class Todolist {
         switch (scanner()) {
             case "1":
                 printByProject();
+                printOptions();
                 break;
             case "2":
                 printByDueDate();
+                printOptions();
                 break;
             default:
                 invalidOption();
@@ -344,7 +363,6 @@ public class Todolist {
     public void printByProject() {
         taskList.stream().sorted(Comparator.comparing(Task::getProjectName))
                 .forEach(p -> System.out.println(taskList.indexOf(p) + p.printTasks()));
-        printOptions();
     }
 
     /**
@@ -353,7 +371,6 @@ public class Todolist {
     public void printByDueDate() {
         taskList.stream().sorted(Comparator.comparing(Task::getDueDate))
                 .forEach(p -> System.out.println(taskList.indexOf(p) + p.printTasks()));
-        printOptions();
     }
 
     /**
