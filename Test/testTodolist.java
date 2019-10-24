@@ -7,9 +7,8 @@ public class testTodolist
 {
 
 @Test
-public void testAddTasks()
+public void testValidateTaskNumber()
     {
-        Todolist list1 = new Todolist();
-        list1.scannerAdd();
+
     }
 }

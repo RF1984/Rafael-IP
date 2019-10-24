@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args)
     {
-        Todolist todolist = new Todolist();
+        Todolist todolist = new Todolist(System.in);
         todolist.printWelcome();
     }
 }
