@@ -56,7 +56,7 @@ public class FileClass {
                }
                catch (NumberFormatException Exception)
                {
-                   System.out.println("error of sorts" + record);
+                   System.out.println("file not read" + record);
                    return null;
                }
            }
