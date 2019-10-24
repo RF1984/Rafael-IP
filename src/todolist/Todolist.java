@@ -1,5 +1,6 @@
 package todolist;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,10 +20,10 @@ public class Todolist {
     /**
      * Constructor for todoList: Initializes the ArrayList, and the FileClass (used to write/save files)
      */
-    public Todolist() {
+    public Todolist(InputStream source) {
         taskList = new ArrayList<>();
         fileClass = new FileClass();
-        userInput = new Scanner(System.in);
+        userInput = new Scanner(source);
     }
 
     /**
@@ -342,6 +343,7 @@ public class Todolist {
                     break;
                 case "2":
                     printByDueDate();
+                    break;
                 default:
                     invalidOption();
                     sortOptions();
@@ -371,5 +373,9 @@ public class Todolist {
      */
     public int getCount(Boolean taskStatus) {
         return (int) taskList.stream().filter(x -> x.getTaskStatus().equals(taskStatus)).count();
+    }
+    public Task getListElement(int index)
+    {
+       return taskList.get(index);
     }
 }
