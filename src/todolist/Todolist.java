@@ -49,7 +49,8 @@ public class Todolist {
             if (index < 0 || index > taskList.size() - 1) {
                 return -1;
             }
-        } catch (NumberFormatException Exception){}
+        } catch (NumberFormatException Exception) {
+        }
         return index;
     }
 
@@ -226,8 +227,9 @@ public class Todolist {
             taskList.get(index).changeDueDate(stringToDate(newDueDate));
             printByProject();
             printOptions();
+        } else {
+            printOptions();
         }
-        else {printOptions();}
     }
 
     /**
@@ -279,14 +281,11 @@ public class Todolist {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localDate = LocalDate.parse(dateString, formatter);
-            if(localDate.compareTo(LocalDate.now()) < 0)
-            {
+            if (localDate.compareTo(LocalDate.now()) < 0) {
                 System.out.println("The date you typed belongs in the past, try again");
                 return null;
-            }
-            else
-            {
-                return localDate;  
+            } else {
+                return localDate;
             }
         } catch (DateTimeParseException exception) {
             System.out.println("wrong date format, try again");

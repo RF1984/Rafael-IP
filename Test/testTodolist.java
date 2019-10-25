@@ -1,9 +1,14 @@
 //import junit.org.*;
+
 import org.junit.Test;
 import todolist.Task;
 import todolist.Todolist;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -27,5 +32,21 @@ public class testTodolist {
         assertEquals("a", result.getTaskTitle());
         assertEquals("b", result.getProjectName());
         assertEquals("2020-10-10", result.getDueDate().toString());
+    }
+
+    /**
+     * this method tests the getCount method. I creates a task, adds it to an array of Task, and then runs the method.
+     * We choose to get the count for unfinished tasks (those with taskStatus = false).
+     */
+    @Test
+    public void testGetCountMethod() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse("13-04-1999", formatter);
+        Task t1 = new Task("task1", "project1", localDate);
+        ArrayList<Task> testList = new ArrayList<>();
+        testList.add(t1);
+        int result = (int) testList.stream().filter(x -> x.getTaskStatus().equals(false)).count();
+
+        assertEquals(1, result);
     }
 }

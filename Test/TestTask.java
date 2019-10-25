@@ -1,7 +1,9 @@
 import org.junit.Test;
 import todolist.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -24,11 +26,11 @@ public class TestTask {
 
         assertEquals(false, getStatus);
         assertEquals("task1", getName);
-        assertEquals("project1",getProject);
+        assertEquals("project1", getProject);
     }
 
     /**
-     * tests the set methods that are use when editing a task.
+     * tests the set methods that are use when editing a task: done();changeTitle() and changeProject()
      * This method ends up testing also the get methods, making the preview test redundant.
      */
     @Test
@@ -42,6 +44,6 @@ public class TestTask {
 
         assertEquals(true, t1.getTaskStatus());
         assertEquals("changed title", t1.getTaskTitle());
-        assertEquals("changed project",t1.getProjectName());
+        assertEquals("changed project", t1.getProjectName());
     }
 }

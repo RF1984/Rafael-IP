@@ -106,6 +106,7 @@ public class Task {
     public Boolean getTaskStatus() {
         return taskStatus;
     }
+
     /**
      * set method. sets new task title
      *
@@ -130,11 +131,10 @@ public class Task {
      * @param newDueDate
      */
     public void changeDueDate(LocalDate newDueDate) {
-        if (newDueDate == null)
-        {}
-        else{
-        this.dueDate = newDueDate;
-        System.out.println("due date changed!");
+        if (newDueDate == null) {
+        } else {
+            this.dueDate = newDueDate;
+            System.out.println("due date changed!");
         }
     }
 }
