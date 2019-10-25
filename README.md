@@ -23,6 +23,6 @@ Support a text-based user interface
 Load and save task list to file
 
 
-## ![Class Diagram](classdiagram.png?raw=true "Class Diagram")
+## ![Class Diagram](ClassDiagram.png?raw=true "Class Diagram")
 
 ## [User Manual](TodolistManual.pdf)
