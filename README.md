@@ -23,6 +23,6 @@ Support a text-based user interface
 Load and save task list to file
 
 
-## [Class Diagram] (../Rafael-IP/ClassDiagram.png)
+## ![Class Diagram](classdiagram.png?raw=true "Class Diagram")
 
-## User Manual
+## [User Manual](Todolist_Manual.pdf)

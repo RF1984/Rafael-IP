@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 
 public class FileClass {
-    private static final int numberOfFields = 4;    
+    private static final int numberOfFields = 4;
     private static final int TASK = 0,
             PROJECT = 1,
             DATE = 2,
