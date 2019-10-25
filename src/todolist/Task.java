@@ -130,6 +130,11 @@ public class Task {
      * @param newDueDate
      */
     public void changeDueDate(LocalDate newDueDate) {
+        if (newDueDate == null)
+        {}
+        else{
         this.dueDate = newDueDate;
+        System.out.println("due date changed!");
+        }
     }
 }

@@ -222,10 +222,12 @@ public class Todolist {
         int index = validateTaskNumber();
         System.out.println("type new due date (dd-mm-yyyy:)");
         String newDueDate = scanner();
-        taskList.get(index).changeDueDate(stringToDate(newDueDate));
-        System.out.println("due date changed!");
-        printByProject();
-        printOptions();
+        if (stringToDate(newDueDate) != null) {
+            taskList.get(index).changeDueDate(stringToDate(newDueDate));
+            printByProject();
+            printOptions();
+        }
+        else {printOptions();}
     }
 
     /**
@@ -279,7 +281,7 @@ public class Todolist {
             LocalDate localDate = LocalDate.parse(dateString, formatter);
             if(localDate.compareTo(LocalDate.now()) < 0)
             {
-                System.out.println("The date you typed belongs in the pass, try again");
+                System.out.println("The date you typed belongs in the past, try again");
                 return null;
             }
             else
