@@ -23,6 +23,6 @@ Support a text-based user interface
 Load and save task list to file
 
 
-## [Class Diagram] (Class Diagram.png)
+## [Class Diagram] (../Rafael-IP/ClassDiagram.png)
 
 ## User Manual
