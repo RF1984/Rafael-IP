@@ -140,7 +140,7 @@ public class Todolist {
      */
     public void printEdit() {
         if (taskList.isEmpty()) {
-            listEmpty();
+            listEmptyWarning();
             printOptions();
         } else {
             System.out.println("=========================================");
@@ -317,7 +317,7 @@ public class Todolist {
         System.out.println("That's not a valid task number");
     }
 
-    public void listEmpty() {
+    public void listEmptyWarning() {
         System.out.println("Your list is still empty");
         System.out.println("Add some tasks first");
     }
@@ -328,7 +328,7 @@ public class Todolist {
      */
     public void printSortOptions() {
         if (taskList.isEmpty()) {
-            listEmpty();
+            listEmptyWarning();
             printOptions();
         } else {
             System.out.println("Choose one of the following options:");

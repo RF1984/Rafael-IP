@@ -106,7 +106,6 @@ public class Task {
     public Boolean getTaskStatus() {
         return taskStatus;
     }
-
     /**
      * set method. sets new task title
      *
